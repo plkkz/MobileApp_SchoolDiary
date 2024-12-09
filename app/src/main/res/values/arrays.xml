@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="attendance_status_array">
+        <item>Присутствовал</item>
+        <item>Отсутствовал</item>
+        <item>Болел</item>
+    </string-array>
+</resources>

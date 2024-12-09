@@ -1,0 +1,36 @@
+<!-- res/layout/activity_attendance.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextAttendanceStudentId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ID ученика" />
+
+    <EditText
+        android:id="@+id/editTextAttendanceDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Дата посещения (дд.мм.гггг)" />
+
+    <Spinner
+        android:id="@+id/spinnerAttendanceStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ArrayAdapter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/attendance_status_array" />
+    </Spinner>
+
+    <Button
+        android:id="@+id/buttonAddAttendance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Добавить посещение" />
+</LinearLayout>
