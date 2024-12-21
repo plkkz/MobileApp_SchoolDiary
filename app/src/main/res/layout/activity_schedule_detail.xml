@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/edit_text_student_full_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ФИО ученика"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edit_text_subject_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Название предмета"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edit_text_grade_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Оценка"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/edit_text_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Дата (например, 2023-10-01)"
+        android:inputType="date" />
+
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Сохранить"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/button_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Удалить"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

@@ -1,38 +1,22 @@
-<!-- res/layout/activity_homework.xml -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/editTextHomeworkSubjectId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ID предмета" />
-
-    <EditText
-        android:id="@+id/editTextHomeworkTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Название домашнего задания" />
-
-    <EditText
-        android:id="@+id/editTextHomeworkDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Описание задания" />
-
-    <EditText
-        android:id="@+id/editTextHomeworkDueDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Дата сдачи (дд.мм.гггг)" />
-
     <Button
-        android:id="@+id/buttonAddHomework"
+        android:id="@+id/button_add_homework"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Добавить домашнее задание" />
-</LinearLayout>
+        android:text="Добавить домашнее задание"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp" />
+
+    <ListView
+        android:id="@+id/list_view_homeworks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/button_add_homework" />
+
+</RelativeLayout>

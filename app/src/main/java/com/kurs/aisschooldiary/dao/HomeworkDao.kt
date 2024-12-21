@@ -1,22 +1,27 @@
 package com.kurs.aisschooldiary.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
+import androidx.room.Delete
 import com.kurs.aisschooldiary.models.Homework
 
 @Dao
 interface HomeworkDao {
+
     @Insert
-    suspend fun insert(homework: Homework)
+    suspend fun insertHomework(homework: Homework)
 
     @Update
-    suspend fun update(homework: Homework)
+    suspend fun updateHomework(homework: Homework)
 
     @Delete
-    suspend fun delete(homework: Homework)
+    suspend fun deleteHomework(homework: Homework)
 
-    @Query("SELECT * FROM homework")
-    suspend fun getAllHomework(): List<Homework>
+    @Query("SELECT * FROM Homework WHERE homeworkId = :id")
+    suspend fun getHomeworkById(id: Long): Homework?
 
-    @Query("SELECT * FROM homework WHERE homework_id = :id")
-    suspend fun getHomeworkById(id: Int): Homework?
+    @Query("SELECT * FROM Homework")
+    suspend fun getAllHomeworks(): List<Homework>
 }

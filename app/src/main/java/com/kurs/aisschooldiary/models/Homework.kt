@@ -1,9 +1,16 @@
 package com.kurs.aisschooldiary.models
 
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+/**
+ * Модель домашнего задания, представляющая таблицу Homework в базе данных.
+ */
+@Entity
 data class Homework(
-    val homeworkId: Int, // Уникальный идентификатор домашнего задания (PK)
-    val subjectId: Int, // Идентификатор предмета (FK)
-    val title: String, // Название домашнего задания
-    val description: String, // Описание задания
-    val dueDate: String // Дата сдачи задания
+    @PrimaryKey(autoGenerate = true) val homeworkId: Long = 0,
+    val subjectId: Long,
+    val description: String,
+    val dueDate: String
 )
