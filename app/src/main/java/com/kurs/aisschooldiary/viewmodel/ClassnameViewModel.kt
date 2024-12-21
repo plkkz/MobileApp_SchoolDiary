@@ -50,6 +50,7 @@ class ClassnameViewModel(private val repository: ClassnameRepository) : ViewMode
         }
     }
 
+
     fun delete(classname: Classname) {
         coroutineScope.launch {
             repository.delete(classname)

@@ -36,7 +36,7 @@ class StudentListActivity : AppCompatActivity() {
         studentViewModel.students.observe(this) { students ->
             // Обновляем список имен студентов
             studentNames.clear()
-            studentNames.addAll(students.map { it.name }) // Предполагается, что у студента есть поле name
+            studentNames.addAll(students.map { "${it.surname} ${it.name} ${it.patronym}" })
             studentAdapter.notifyDataSetChanged()
         }
 

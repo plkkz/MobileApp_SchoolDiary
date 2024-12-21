@@ -2,29 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Школьный дневник"
-        android:textSize="24sp" />
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <Button
-        android:id="@+id/button_students"
-        android:layout_width="wrap_content"
+        android:id="@+id/button_classnames"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ученики" />
+        android:text="Классы" />
 
     <Button
-        android:id="@+id/button_schedule"
-        android:layout_width="wrap_content"
+        android:id="@+id/button_grades"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Оценки" />
+
+    <Button
+        android:id="@+id/button_homeworks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Домашние задания" />
+
+    <Button
+        android:id="@+id/button_schedules"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Расписание" />
 
     <Button
-        android:id="@+id/button_homework"
-        android:layout_width="wrap_content"
+        android:id="@+id/button_students"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Домашние задания" />
+        android:text="Студенты" />
 </LinearLayout>

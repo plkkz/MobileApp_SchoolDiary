@@ -26,4 +26,5 @@
         android:text="Удалить"
         android:layout_marginTop="8dp" />
 
+
 </LinearLayout>

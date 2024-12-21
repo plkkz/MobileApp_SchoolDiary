@@ -1,4 +1,4 @@
-package com.kurs.aisschooldiary.database
+package com.kurs.aisschooldiary.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

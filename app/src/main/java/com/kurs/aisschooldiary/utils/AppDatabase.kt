@@ -12,7 +12,7 @@ import com.kurs.aisschooldiary.models.*
  */
 @Database(entities = [Classname::class, Student::class, Grade::class, Schedule::class, Homework::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun classDao(): ClassDao
+    abstract fun classDao(): ClassnameDao
     abstract fun studentDao(): StudentDao
     abstract fun gradeDao(): GradeDao
     abstract fun scheduleDao(): ScheduleDao

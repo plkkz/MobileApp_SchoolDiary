@@ -11,6 +11,11 @@
         android:layout_height="wrap_content"
         android:hint="ФИО ученика"
         android:inputType="text" />
+    <Spinner
+        android:id="@+id/spinner_classname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Класс" />
 
     <EditText
         android:id="@+id/edit_text_subject_name"

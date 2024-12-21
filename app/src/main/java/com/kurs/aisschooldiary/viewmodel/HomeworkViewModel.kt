@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kurs.aisschooldiary.models.Homework
-import com.kurs.aisschooldiary.repository.HomeworkRepository
+import com.kurs.aisschooldiary.repositories.HomeworkRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
