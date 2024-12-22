@@ -23,24 +23,20 @@ class MainActivity : AppCompatActivity() {
         val buttonStudents: Button = findViewById(R.id.button_students)
 
         // Установка обработчиков нажатий для кнопок
-        buttonClassnames.setOnClickListener {
-            startActivity(Intent(this, ClassnameListActivity::class.java))
-        }
+        buttonClassnames.setOnClickListener { launchActivity(ClassnameListActivity::class.java) }
+        buttonGrades.setOnClickListener { launchActivity(GradeListActivity::class.java) }
+        buttonHomeworks.setOnClickListener { launchActivity(HomeworkListActivity::class.java) }
+        buttonSchedules.setOnClickListener { launchActivity(ScheduleListActivity::class.java) }
+        buttonStudents.setOnClickListener { launchActivity(StudentListActivity::class.java) }
+    }
 
-        buttonGrades.setOnClickListener {
-            startActivity(Intent(this, GradeListActivity::class.java))
-        }
-
-        buttonHomeworks.setOnClickListener {
-            startActivity(Intent(this, HomeworkListActivity::class.java))
-        }
-
-        buttonSchedules.setOnClickListener {
-            startActivity(Intent(this, ScheduleListActivity::class.java))
-        }
-
-        buttonStudents.setOnClickListener {
-            startActivity(Intent(this, StudentListActivity::class.java))
+    // Функция для запуска активности
+    private fun <T> launchActivity(activityClass: Class<T>) {
+        try {
+            val intent = Intent(this, activityClass)
+            startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace() // Логирование ошибки, если что-то пошло не так
         }
     }
 }

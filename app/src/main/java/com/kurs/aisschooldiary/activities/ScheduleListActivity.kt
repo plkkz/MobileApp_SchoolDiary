@@ -11,7 +11,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.kurs.aisschooldiary.MainActivity
 import com.kurs.aisschooldiary.R
-import com.kurs.aisschooldiary.ui.ScheduleDetailActivity
 import com.kurs.aisschooldiary.viewmodel.ScheduleViewModel
 
 class ScheduleListActivity : AppCompatActivity() {

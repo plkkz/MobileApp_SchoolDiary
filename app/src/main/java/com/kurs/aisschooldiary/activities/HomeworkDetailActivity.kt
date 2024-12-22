@@ -1,5 +1,6 @@
-package com.kurs.aisschooldiary.ui
+package com.kurs.aisschooldiary.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -14,6 +15,7 @@ import com.kurs.aisschooldiary.viewmodel.HomeworkViewModel
 class HomeworkDetailActivity : AppCompatActivity() {
     private val homeworkViewModel: HomeworkViewModel by viewModels()
     private var homeworkId: Long = 0
+    private var subjectId: Long = 0 // Добавляем переменную для subjectId
     private lateinit var gestureDetector: GestureDetector
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +26,7 @@ class HomeworkDetailActivity : AppCompatActivity() {
         gestureDetector = GestureDetector(this, GestureListener())
 
         homeworkId = intent.getLongExtra("HOMEWORK_ID", 0)
+        subjectId = intent.getLongExtra("SUBJECT_ID", 0) // Получаем subjectId из Intent
 
         if (homeworkId != 0L) {
             homeworkViewModel.getHomeworkById(homeworkId).observe(this) { homework ->
@@ -47,7 +50,7 @@ class HomeworkDetailActivity : AppCompatActivity() {
         val description = findViewById<EditText>(R.id.edit_text_description).text.toString()
         val dueDate = findViewById<EditText>(R.id.edit_text_due_date).text.toString()
 
-        val homework = Homework(homeworkId, 0, description, dueDate) // Замените 0 на нужный subjectId
+        val homework = Homework(homeworkId, subjectId, description, dueDate) // Используем subjectId
         if (homeworkId == 0L) {
             homeworkViewModel.insertHomework(homework)
         } else {
@@ -57,8 +60,10 @@ class HomeworkDetailActivity : AppCompatActivity() {
     }
 
     private fun deleteHomework() {
-        val homework = Homework(homeworkId, 0, "", "") // Замените 0 на нужный subjectId
-        homeworkViewModel.deleteHomework(homework)
+        if (homeworkId != 0L) {
+            val homework = Homework(homeworkId, subjectId, "", "") // Используем subjectId
+            homeworkViewModel.deleteHomework(homework)
+        }
         finish()
     }
 

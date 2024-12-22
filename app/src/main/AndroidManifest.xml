@@ -21,6 +21,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.ClassnameListActivity" />
+        <activity android:name=".activities.GradeListActivity" />
+        <activity android:name=".activities.HomeworkListActivity" />
+        <activity android:name=".activities.ScheduleListActivity" />
+        <activity android:name=".activities.StudentListActivity" />
+        <activity android:name=".activities.ClassnameDetailActivity" />
+        <activity android:name=".activities.GradeDetailActivity" />
+        <activity android:name=".activities.HomeworkDetailActivity" />
+        <activity android:name=".activities.ScheduleDetailActivity" />
+        <activity android:name=".activities.StudentDetailActivity" />
     </application>
 
 </manifest>

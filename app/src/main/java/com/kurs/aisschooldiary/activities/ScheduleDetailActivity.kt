@@ -1,4 +1,4 @@
-package com.kurs.aisschooldiary.ui
+package com.kurs.aisschooldiary.activities
 
 import android.os.Bundle
 import android.view.GestureDetector

@@ -56,6 +56,7 @@ class StudentViewModel(private val repository: StudentRepository) : ViewModel() 
             getAllStudents() // Обновляем список после удаления
         }
     }
+
     fun getIdByFullName(fullName: String): Long {
         var studentId: Long = 0
         coroutineScope.launch {
