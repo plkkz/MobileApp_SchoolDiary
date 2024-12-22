@@ -1,6 +1,8 @@
 package com.kurs.aisschooldiary.activities
 
 import android.os.Bundle
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.viewModels
@@ -16,10 +18,14 @@ class GradeDetailActivity : AppCompatActivity() {
     private val studentViewModel: StudentViewModel by viewModels()
     private val scheduleViewModel: ScheduleViewModel by viewModels()
     private var gradeId: Long = 0
+    private lateinit var gestureDetector: GestureDetector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_grade_detail)
+
+        // Инициализация GestureDetector
+        gestureDetector = GestureDetector(this, GestureListener())
 
         gradeId = intent.getLongExtra("GRADE_ID", 0)
 
@@ -63,7 +69,6 @@ class GradeDetailActivity : AppCompatActivity() {
         val date = findViewById<EditText>(R.id.edit_text_date).text.toString()
 
         // Здесь нужно будет получить studentId и subjectId на основе введенных данных
-        // Это можно сделать через отдельные методы поиска в ваших ViewModel
         val studentId = studentViewModel.getIdByFullName(studentFullName) // Метод для получения ID по полному имени
         val subjectId = scheduleViewModel.getIdBySubjectName(subjectName) // Метод для получения ID по названию предмета
 
@@ -80,5 +85,41 @@ class GradeDetailActivity : AppCompatActivity() {
         val grade = Grade(gradeId, 0, 0, 0, "")
         gradeViewModel.deleteGrade(grade)
         finish()
+    }
+
+    // Обработка жестов
+    private inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
+        override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+            if (e1 == null) return false
+
+            val SWIPE_THRESHOLD = 100
+            val SWIPE_VELOCITY_THRESHOLD = 100
+
+            val diffX = e2.x - e1.x
+            val diffY = e2.y - e1.y
+
+            // Проверяем, что свайп больше по горизонтали, чем по вертикали
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                // Проверяем, что свайп превышает порог и скорость
+                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (diffX < 0) {
+                        // Свайп влево
+                        navigateBack()
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+    }
+
+    private fun navigateBack() {
+        // Закрываем текущую Activity, чтобы вернуться на GradeListActivity
+        finish()
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        // Передаем события касания GestureDetector
+        return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
     }
 }

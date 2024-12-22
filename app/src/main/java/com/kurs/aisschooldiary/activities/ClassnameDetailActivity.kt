@@ -1,6 +1,8 @@
 package com.kurs.aisschooldiary.activities
 
 import android.os.Bundle
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -13,6 +15,7 @@ import com.kurs.aisschooldiary.viewmodel.ClassnameViewModel
 class ClassnameDetailActivity : AppCompatActivity() {
     private val classnameViewModel: ClassnameViewModel by viewModels()
     private var classnameId: Long = 0
+    private lateinit var gestureDetector: GestureDetector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +40,14 @@ class ClassnameDetailActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button_delete).setOnClickListener {
             deleteClassname()
         }
+
+        // Инициализация GestureDetector
+        gestureDetector = GestureDetector(this, GestureListener())
     }
 
     private fun saveClassname() {
         val classnameName = findViewById<EditText>(R.id.edit_text_classname).text.toString()
-        val classname = Classname(classnameId, classnameName) // Замените 0 на нужный classnameId
+        val classname = Classname(classnameId, classnameName)
         if (classnameId == 0L) {
             classnameViewModel.insert(classname)
         } else {
@@ -51,9 +57,45 @@ class ClassnameDetailActivity : AppCompatActivity() {
     }
 
     private fun deleteClassname() {
-        val classname = Classname(classnameId, "") // Пустое имя для удаления
+        val classname = Classname(classnameId, "")
         classnameViewModel.delete(classname)
         Toast.makeText(this, "Класс удален", Toast.LENGTH_SHORT).show()
         finish()
+    }
+
+    // Обработка жестов
+    private inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
+        override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+            if (e1 == null) return false
+
+            val SWIPE_THRESHOLD = 100
+            val SWIPE_VELOCITY_THRESHOLD = 100
+
+            val diffX = e2.x - e1.x
+            val diffY = e2.y - e1.y
+
+            // Проверяем, что свайп больше по горизонтали, чем по вертикали
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                // Проверяем, что свайп превышает порог и скорость
+                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (diffX < 0) {
+                        // Свайп влево
+                        navigateBack()
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+    }
+
+    private fun navigateBack() {
+        // Переход на ClassnameListActivity
+        finish() // Закрываем текущую активность
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        // Передаем события касания GestureDetector
+        return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
     }
 }

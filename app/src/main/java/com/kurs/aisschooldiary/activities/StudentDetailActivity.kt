@@ -1,6 +1,9 @@
 package com.kurs.aisschooldiary.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -20,6 +23,7 @@ class StudentDetailActivity : AppCompatActivity() {
     private var studentId: Long = 0
     private lateinit var classnameSpinner: Spinner
     private lateinit var classnames: List<Classname>
+    private lateinit var gestureDetector: GestureDetector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +62,9 @@ class StudentDetailActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button_delete).setOnClickListener {
             deleteStudent()
         }
+
+        // Инициализация GestureDetector
+        gestureDetector = GestureDetector(this, GestureListener())
     }
 
     private fun setupSpinner(classnames: List<Classname>) {
@@ -102,6 +109,44 @@ class StudentDetailActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Ошибка: Студент не выбран для удаления", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    // Обработка жестов
+    private inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
+        override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+            if (e1 == null) return false
+
+            val SWIPE_THRESHOLD = 100
+            val SWIPE_VELOCITY_THRESHOLD = 100
+
+            val diffX = e2.x - e1.x
+            val diffY = e2.y - e1.y
+
+            // Проверяем, что свайп больше по горизонтали, чем по вертикали
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                // Проверяем, что свайп превышает порог и скорость
+                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (diffX < 0) {
+                        // Свайп влево
+                        navigateBack()
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+    }
+
+    private fun navigateBack() {
+        // Переход на StudentListActivity
+        val intent = Intent(this, StudentListActivity::class.java)
+        startActivity(intent)
+        finish() // Закрываем текущую Activity
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        // Передаем события касания GestureDetector
+        return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
     }
 
 }

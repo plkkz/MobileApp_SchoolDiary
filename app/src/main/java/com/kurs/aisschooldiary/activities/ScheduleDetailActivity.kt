@@ -1,6 +1,8 @@
 package com.kurs.aisschooldiary.ui
 
 import android.os.Bundle
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -20,6 +22,7 @@ class ScheduleDetailActivity : AppCompatActivity() {
     private var subjectId: Long = 0
     private lateinit var classnameSpinner: Spinner
     private lateinit var classnames: List<Classname>
+    private lateinit var gestureDetector: GestureDetector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +32,10 @@ class ScheduleDetailActivity : AppCompatActivity() {
 
         subjectId = intent.getLongExtra("SCHEDULE_ID", 0)
 
+        // Инициализация GestureDetector
+        gestureDetector = GestureDetector(this, GestureListener())
+
         // Загружаем предметы для Spinner
-        // Получаем список классов
         classnameViewModel.getAllClassnames()
         classnameViewModel.classnames.observe(this) { classnames ->
             this.classnames = classnames
@@ -92,5 +97,41 @@ class ScheduleDetailActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Ошибка: Расписание не выбрано для удаления", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    // Обработка жестов
+    private inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
+        override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+            if (e1 == null) return false
+
+            val SWIPE_THRESHOLD = 100
+            val SWIPE_VELOCITY_THRESHOLD = 100
+
+            val diffX = e2.x - e1.x
+            val diffY = e2.y - e1.y
+
+            // Проверяем, что свайп больше по горизонтали, чем по вертикали
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                // Проверяем, что свайп превышает порог и скорость
+                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (diffX < 0) {
+                        // Свайп влево
+                        navigateBack()
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+    }
+
+    private fun navigateBack() {
+        // Переход на ScheduleListActivity
+        finish() // Закрываем текущую Activity, чтобы вернуться на предыдущую
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        // Передаем события касания GestureDetector
+        return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
     }
 }
